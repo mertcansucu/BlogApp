@@ -20,17 +20,19 @@ namespace BlogApp.Controllers
         //**Postun içinde tag bilgileri olduğu için onuda ekledim
         //ancak iki tablodan veri göndereceğim için bunları ortak bir models(PostsViewModel) içinde çağırıp index sayfasına ekleyerek yaptım
 
+        //bu yöntemden sonra ben component kullanarak veri çektim onun için bu bilgileri sidim
+
         private IPostRepository _postRepository;
-        private ITagRepository _tagsRepository;
-        public PostsController(IPostRepository postRepository,ITagRepository tagsRepository){
+        
+        public PostsController(IPostRepository postRepository){
             _postRepository = postRepository;
-            _tagsRepository = tagsRepository;
+            // _tagsRepository = tagsRepository;
         }
         public IActionResult Index(){
             return View(new PostsViewModel
             {// index.cshtml sayfasına bilgileri gönderdim
                 Posts = _postRepository.Posts.ToList(),
-                Tags = _tagsRepository.Tags.ToList()
+                // Tags = _tagsRepository.Tags.ToList()
 
             }); 
         }
