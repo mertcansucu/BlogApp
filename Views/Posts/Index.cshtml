@@ -12,7 +12,11 @@
                             <img src="~/img/@post.Image" class="img-fluid rounded" alt="">
                         </div>
                         <div class="col-8">
-                            <h5><a href="#" class="btn-link fw-bold">@post.Title</a></h5>
+                            <h5><a asp-action="Details" asp-route-id="@post.PostId" class="btn-link fw-bold">@post.Title</a></h5><!--id bilgisini details sayfasına gönderip o id ye ait verileri getirdim
+                            bunun çalışması için;
+                            _ViewImports.cshtml içine:
+                            @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+                            -->
                             <p>@post.Content</p>
                             <a href="#" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">Web Development</a>
                         </div>
@@ -33,6 +37,7 @@
         <!-- önceden direk buraya taglaeri getiriyordum ama component oluşturup ordan tag direk çektim,ViewComponent-TagsMenu ve cshtml halide default.cshtml içine aktardım
              -->
         <!--oluşturduğum yapıyı çağırırken taghelper kullanabilirim ,vc=>viewComponent demek-->
-        <vc:tags-menu></vc:tags-menu>
+        <vc:tags-menu></vc:tags-menu><!--TagsMenu.cs-->
+        <vc:new-posts></vc:new-posts><!--NewPosts.cs-->
     </div>
 </div>

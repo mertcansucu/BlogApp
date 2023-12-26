@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BlogApp.ViewComponents
@@ -16,8 +17,8 @@ namespace BlogApp.ViewComponents
             _tagsRepository = tagsRepository;
         }
 
-        public IViewComponentResult Invoke(){
-            return View(_tagsRepository.Tags.ToList());
+        public async Task<IViewComponentResult> InvokeAsync(){
+            return View(await _tagsRepository.Tags.ToListAsync());
         }
     }
 }
