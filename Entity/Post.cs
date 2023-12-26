@@ -10,6 +10,7 @@ namespace BlogApp.Entity
         public int PostId { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }
+        public string? Image {get; set;}
         public DateTime PubilshedOn { get; set; }
         public bool IsActive { get; set; }//active lik durumu admin onayı olan postlar sadece yayınlanacak
         public int UserId { get; set; }

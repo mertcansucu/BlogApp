@@ -42,6 +42,12 @@ namespace BlogApp.Data.Concrete.EfCore
 
                 if(!context.Posts.Any())
                 {
+                    /*
+                        bilgileri güncellediğimde veri tabanını yeniden yüklemek için
+                            dotnet ef database drop --force
+                            dotnet watch run
+
+                    */
                     context.Posts.AddRange(
                         new Post {
                             Title = "Asp.net core",
@@ -49,6 +55,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-10),
                             Tags = context.Tags.Take(3).ToList(),
+                            Image = "1.jpg",
                             UserId = 1,
                         },
                         new Post {
@@ -57,6 +64,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-20),
                             Tags = context.Tags.Take(2).ToList(),
+                            Image = "2.jpg",
                             UserId = 1
                         },
                         new Post {
@@ -65,6 +73,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-30),
                             Tags = context.Tags.Take(4).ToList(),
+                            Image = "2.jpg",
                             UserId = 2
                         }
                         ,
@@ -74,6 +83,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-40),
                             Tags = context.Tags.Take(4).ToList(),
+                            Image = "3.jpg",
                             UserId = 2
                         }
                         ,
@@ -83,6 +93,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-50),//güncel tarihten 50 gün öncesini ekledim
                             Tags = context.Tags.Take(4).ToList(),//ilk 4 etiketi al dedim
+                            Image = "1.jpg",
                             UserId = 2
                         }
                         ,
@@ -92,6 +103,7 @@ namespace BlogApp.Data.Concrete.EfCore
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-60),
                             Tags = context.Tags.Take(4).ToList(),
+                            Image = "2.jpg",
                             UserId = 2
                         }
                     );

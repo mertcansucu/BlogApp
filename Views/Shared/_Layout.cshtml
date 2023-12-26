@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"><!--bootstrap bağlantısı-->
+    <!--
+        bootstrap dosyalarını proje içine aktif etmek için yazdığım komutlar:
+            libman init -p cdnjs
+            libman install bootstrap@5.3.1 -d wwwroot/lib/bootstrap
+
+    -->
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"><!--bootstrap bağlantısı-->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a href="/posts" class="navbar-brand">
+                <i class="bi bi-code"></i> BlogApp
+                <!--icon eklemek için eklemem lazım gerekli kod:
+                    libman install bootstrap-icons@1.10.5 -d wwwroot/lib/bootstrap-icons
+
+                -->
+            </a>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        @RenderBody() <!--Bütün viewler için ortak çağrılacak bir yapı oluşturdum 
+            _ViewStart => içinde de bunu ekledim-->
+    </div>
+    
+</body>
+</html>

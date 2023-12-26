@@ -63,3 +63,7 @@ C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\
 C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\obj\Debug\net7.0\ref\BlogApp.dll
 C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\bin\Debug\net7.0\MySqlConnector.dll
 C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\bin\Debug\net7.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\obj\Debug\net7.0\BlogApp.RazorAssemblyInfo.cache
+C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\obj\Debug\net7.0\BlogApp.RazorAssemblyInfo.cs
+C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\bin\Debug\net7.0\libman.json
+C:\Users\Mert Can SUCU\OneDrive - Ataturk University\Masaüstü\BlogApp\BlogApp\bin\Debug\net7.0\BlogApp.staticwebassets.runtime.json
