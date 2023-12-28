@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
+using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,10 +25,12 @@ namespace BlogApp.Controllers
         //bu yöntemden sonra ben component kullanarak veri çektim onun için bu bilgileri sidim
 
         private IPostRepository _postRepository;
+        private ICommentRepository _commentRepository;
         
-        public PostsController(IPostRepository postRepository){
+        public PostsController(IPostRepository postRepository, ICommentRepository commentRepository){
             _postRepository = postRepository;
             // _tagsRepository = tagsRepository;
+            _commentRepository = commentRepository;
         }
         public async Task<IActionResult> Index(string tag){//burdaki tag url olarak kullanıyorum karışıklık olmasın diye böyle dedim
             var posts = _postRepository.Posts;//Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
@@ -47,7 +50,23 @@ namespace BlogApp.Controllers
             return View(await _postRepository
             .Posts
             .Include(x => x.Tags)//joinleme yaptım
+            .Include(x => x.Comments)//o postla ilgili yorumları ekledim join ile
+            .ThenInclude(x => x.User)//bunu böyle yapmamın nedeni commentinde user bilgisini alıp onun içindeki resmi çekmek için
             .FirstOrDefaultAsync(p => p.Url == url));
+        }
+
+        public IActionResult AddComment(int PostId, string UserName, string Text, string Url){
+            var entity = new Comment{
+                Text = Text,
+                PublishedOn = DateTime.Now,
+                PostId = PostId,
+                User = new User{UserName = UserName, Image = "avatar.jpg"}
+            };
+            _commentRepository.CreateComment(entity);
+            // return Redirect("/posts/details/" + Url);
+            //2. yol bunu programcs de post_details direkt alıp o kısmı otomatik dolturttum
+            return RedirectToRoute("post_details", new{url = Url});
+            
         }
     }
 }

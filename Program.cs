@@ -23,6 +23,7 @@ builder.Services.AddDbContext<BlogContext>(options =>{//veritabı bağlantılar�
 
 builder.Services.AddScoped<IPostRepository, EfPostRepository>();//ben burda diyorum ki IPostRepository ben sanalı göderdiğimde sen bana EfPostRepository ile gerçek halini bana gönder,AddScoped olmasının nedeni her http reqository aynı nesneyi gönderir yani her http requestinde bir nesne yollar
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
+builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 
 var app = builder.Build();
 
@@ -38,7 +39,7 @@ SeedData.TestVerileriniDoldur(app);//app aracılığıyla Services e ulaşıp i�
 //post icin iliskilendirme
 app.MapControllerRoute(
     name: "post_details",
-    pattern: "posts/{url}",//posts sabit yer diğer kısım ise sayfanın urlsini çekmek olacak
+    pattern: "posts/details/{url}",//posts sabit yer diğer kısım ise sayfanın urlsini çekmek olacak
     defaults: new {controller = "Posts",action="Details"}
 );
 //tag icin iliskilendirme,tag bilgilerine göre post bilgilerini listeleme
