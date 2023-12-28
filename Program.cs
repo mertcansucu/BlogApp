@@ -31,6 +31,26 @@ app.UseStaticFiles();//wwwroot altındaki dosyalar http isteklerini karşılar y
 SeedData.TestVerileriniDoldur(app);//app aracılığıyla Services e ulaşıp içerindeki BlogContext bilgisini alıcam
 
 // app.MapGet("/", () => "Hello World!"); ana sayfaya gelen routing var onu kapattım
-app.MapDefaultControllerRoute();
+
+//ben ekranda url kısmını değiştirmek istiyorum onun için eklemeler yapıcam ve benim şstediğim şekli:
+//localhost://posts/react-dersleri
+//localhost://posts/php-dersleri
+//post icin iliskilendirme
+app.MapControllerRoute(
+    name: "post_details",
+    pattern: "posts/{url}",//posts sabit yer diğer kısım ise sayfanın urlsini çekmek olacak
+    defaults: new {controller = "Posts",action="Details"}
+);
+//tag icin iliskilendirme,tag bilgilerine göre post bilgilerini listeleme
+//localhost://posts/tag/php-dersleri
+app.MapControllerRoute(
+    name: "posts_by_tag",//tag bilgilerine göre post bilgilerini listeleme
+    pattern: "posts/tag/{tag}",//posts ve tag sabit yer diğer kısım ise sayfanın urlsini çekmek olacak burda bu şekilde yapmamın nedeni postun urlsini değil tag in urlsini almak,url yerine tag yazmamın nedeni karışmaması için
+    defaults: new {controller = "Posts",action="Index"}
+);
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();

@@ -12,10 +12,14 @@
                             <img src="~/img/@post.Image" class="img-fluid rounded" alt="">
                         </div>
                         <div class="col-8">
-                            <h5><a asp-action="Details" asp-route-id="@post.PostId" class="btn-link fw-bold">@post.Title</a></h5><!--id bilgisini details sayfasına gönderip o id ye ait verileri getirdim
+                            <h5><a href="/posts/@post.Url" class="btn-link fw-bold">@post.Title</a></h5><!--id bilgisini details sayfasına gönderip o id ye ait verileri getirdim
                             bunun çalışması için;
                             _ViewImports.cshtml içine:
                             @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+                            ***bunun yerine artık url ye göre yaptığım için url göndericem o verinin urlsini 
+                            porgramcs de bu şekil tanımladığım için href de böyle yaptım 
+                            pattern: "posts/{url}"
                             -->
                             <p>@post.Content</p>
                             <a href="#" class="badge bg-danger bg-opacity-10 text-danger mb-2 fw-bold">Web Development</a>

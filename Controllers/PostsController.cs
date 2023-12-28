@@ -29,17 +29,25 @@ namespace BlogApp.Controllers
             _postRepository = postRepository;
             // _tagsRepository = tagsRepository;
         }
-        public IActionResult Index(){
+        public async Task<IActionResult> Index(string tag){//burdaki tag url olarak kullanıyorum karışıklık olmasın diye böyle dedim
+            var posts = _postRepository.Posts;//Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
+            if (!string.IsNullOrEmpty(tag))//postaki tag bilgisi boş değilse
+            {
+                posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));//her bir postun taglerine bakıyorum taglerin içerisinde ise tag le eşleşen bir kayıt varsa bu durumda o postu geriye döndere posts ile alıyorum,burda veri tabanı çalışmıyor sadece bilgileri aldım
+            }
             return View(new PostsViewModel
             {// index.cshtml sayfasına bilgileri gönderdim
-                Posts = _postRepository.Posts.ToList(),
-                // Tags = _tagsRepository.Tags.ToList()
+                Posts = await posts.ToListAsync()//burda diyorum ki ya bütün bilgileri gönder ya da if ile koşul sağlanırsa ordaki istediğim bilgileri sadece bana gönder
 
             }); 
         }
 
-        public async Task<IActionResult> Details(int? id){
-            return View(await _postRepository.Posts.FirstOrDefaultAsync(p => p.PostId == id));
+        //önceden url de id bilgisi vardı ben bunu url ile değiştirdim
+        public async Task<IActionResult> Details(string url){
+            return View(await _postRepository
+            .Posts
+            .Include(x => x.Tags)//joinleme yaptım
+            .FirstOrDefaultAsync(p => p.Url == url));
         }
     }
 }

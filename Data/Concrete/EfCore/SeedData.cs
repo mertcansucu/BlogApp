@@ -22,11 +22,11 @@ namespace BlogApp.Data.Concrete.EfCore
                 if(!context.Tags.Any())//herhangi bir tags yoksa yani kayıt yoksa, ben otomatik kayıt ekle dedim 
                 {
                     context.Tags.AddRange(
-                        new Tag { Text = "web programlama" },
-                        new Tag { Text = "backend" },
-                        new Tag { Text = "frontend" },
-                        new Tag { Text = "fullstack" },
-                        new Tag { Text = "php" }
+                        new Tag { Text = "web programlama", Url = "web-programlama",Color = TagColors.warning },//eklediğim renkeleri etiketlerle eşleştirdim
+                        new Tag { Text = "backend", Url = "backend",Color= TagColors.success},
+                        new Tag { Text = "frontend", Url = "frontend",Color= TagColors.danger},
+                        new Tag { Text = "fullstack", Url = "fullstack", Color= TagColors.secondary },
+                        new Tag { Text = "php", Url = "php", Color= TagColors.primary }
                     );
                     context.SaveChanges();
                 }
@@ -47,11 +47,15 @@ namespace BlogApp.Data.Concrete.EfCore
                             dotnet ef database drop --force
                             dotnet watch run
 
+                        **url ekledim onu kodda söylemezsem hata verir onun içinde: 
+                        dotnet ef migrations add UpdateUrlTables
+
                     */
                     context.Posts.AddRange(
                         new Post {
                             Title = "Asp.net core",
                             Content = "Asp.net core dersleri",
+                            Url = "aspnet-core",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-10),
                             Tags = context.Tags.Take(3).ToList(),
@@ -61,15 +65,17 @@ namespace BlogApp.Data.Concrete.EfCore
                         new Post {
                             Title = "Php",
                             Content = "Php core dersleri",
+                            Url = "php",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-20),
-                            Tags = context.Tags.Take(2).ToList(),
+                            Tags = context.Tags.Take(2).ToList(),//bu postu ilk dort etiketle eslestirdim
                             Image = "2.jpg",
                             UserId = 1
                         },
                         new Post {
                             Title = "Django",
                             Content = "Django dersleri",
+                            Url = "django",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-30),
                             Tags = context.Tags.Take(4).ToList(),
@@ -80,6 +86,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         new Post {
                             Title = "React Dersleri",
                             Content = "React dersleri",
+                            Url = "react",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-40),
                             Tags = context.Tags.Take(4).ToList(),
@@ -90,6 +97,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         new Post {
                             Title = "Angular",
                             Content = "Angular dersleri",
+                            Url = "angular",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-50),//güncel tarihten 50 gün öncesini ekledim
                             Tags = context.Tags.Take(4).ToList(),//ilk 4 etiketi al dedim
@@ -100,6 +108,7 @@ namespace BlogApp.Data.Concrete.EfCore
                         new Post {
                             Title = "Web Tasarım",
                             Content = "Web tasarım dersleri",
+                            Url = "web-tasarim",
                             IsActive = true,
                             PubilshedOn = DateTime.Now.AddDays(-60),
                             Tags = context.Tags.Take(4).ToList(),
