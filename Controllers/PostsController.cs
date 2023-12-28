@@ -55,7 +55,8 @@ namespace BlogApp.Controllers
             .FirstOrDefaultAsync(p => p.Url == url));
         }
 
-        public IActionResult AddComment(int PostId, string UserName, string Text, string Url){
+        [HttpPost]
+        public JsonResult AddComment(int PostId, string UserName, string Text){
             var entity = new Comment{
                 Text = Text,
                 PublishedOn = DateTime.Now,
@@ -63,9 +64,17 @@ namespace BlogApp.Controllers
                 User = new User{UserName = UserName, Image = "avatar.jpg"}
             };
             _commentRepository.CreateComment(entity);
-            // return Redirect("/posts/details/" + Url);
-            //2. yol bunu programcs de post_details direkt alıp o kısmı otomatik dolturttum
-            return RedirectToRoute("post_details", new{url = Url});
+            /*json ile ajax request yaptığım için sayfayı json döndürücemki sayfa yenilenmedem yorum eklensin
+                // return Redirect("/posts/details/" + Url);
+                //2. yol bunu programcs de post_details direkt alıp o kısmı otomatik dolturttum
+                // return RedirectToRoute("post_details", new{url = Url});
+            */
+            return Json(new{
+                UserName,
+                Text,
+                entity.PublishedOn,
+                entity.User.Image
+            });
             
         }
     }
