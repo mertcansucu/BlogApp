@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uI2cEzGnX5ecAvNghsZqjQiNj5remMBwOdXAcaOMX1g=",
+  "Hash": "BDD3kqfsx3C2ktWWNmeSBq/IrTThTIZ5hd10uZ5SbFU=",
   "Source": "BlogApp",
   "BasePath": "_content/BlogApp",
   "Mode": "Default",
@@ -102,6 +102,23 @@
       "OriginalItemSpec": "wwwroot\\img\\avatar.jpg"
     },
     {
+      "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\kotan.jpg",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/kotan.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\kotan.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\mcs.jpg",
       "SourceId": "BlogApp",
       "SourceType": "Discovered",
@@ -151,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\p2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\selo.jpg",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/selo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\selo.jpg"
     },
     {
       "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",

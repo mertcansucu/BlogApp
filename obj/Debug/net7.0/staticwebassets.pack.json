@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\img\\avatar.jpg"
     },
     {
+      "Id": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\kotan.jpg",
+      "PackagePath": "staticwebassets\\img\\kotan.jpg"
+    },
+    {
       "Id": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\mcs.jpg",
       "PackagePath": "staticwebassets\\img\\mcs.jpg"
     },
@@ -31,6 +35,10 @@
     {
       "Id": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\p2.jpg",
       "PackagePath": "staticwebassets\\img\\p2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\selo.jpg",
+      "PackagePath": "staticwebassets\\img\\selo.jpg"
     },
     {
       "Id": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\lib\\bootstrap-icons\\bootstrap-icons.svg",

@@ -34,9 +34,12 @@ namespace BlogApp.Data.Concrete.EfCore
                 if(!context.Users.Any())
                 {
                     context.Users.AddRange(
-                        new User { UserName = "mertcansucu",Image = "mcs.jpg"},
-                        new User { UserName = "burakkotan",Image = "p1.jpg"},
-                        new User { UserName = "selametsamli",Image = "p2.jpg"}
+                        new User { UserName = "mertcansucu",Name="Mert Can Sucu",Email= "mrtcnscc@gmail.com",Password="1234",Image = "mcs.jpg"},
+                        new User { UserName = "burakotan",Name="Burak Kotan",Email= "burak@gmail.com",Password="1234",Image = "kotan.jpg"},
+                        new User { UserName = "selametsamli",Name="Selamet Şamlı",Email= "selamet@gmail.com",Password="1234",Image = "selo.jpg"}
+                        //user tablosuna yeni sütun eklediğim için üsteki işlemin sonunda bir de:
+                        //dotnet ef migrations add UpdateUserTable
+
                     );
                     context.SaveChanges();
                 }
