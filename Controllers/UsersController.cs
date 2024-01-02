@@ -8,6 +8,7 @@ using BlogApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers
 {
@@ -24,6 +25,46 @@ namespace BlogApp.Controllers
                 return RedirectToAction("Index","Posts");
             }
             return View();
+        }
+
+        public IActionResult Register(){
+            return View();
+        }
+        [HttpPost]
+         public async Task<IActionResult> Register(RegisterViewModel model,IFormFile imageFile){
+            if (ModelState.IsValid)
+            {
+                if (imageFile != null)
+                {
+                    var extension = Path.GetExtension(imageFile.FileName);//dosyanın uzantısını alır ; mesela burda imageFile.FileName buna bakar abc.jpg ise "jpg" kısmını alır
+                    var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");//burda random isim oluşturup(Guid.NewGuid()) üste dosyadan aldığım uzatıyı ekliyorum direk
+                    var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/img", randomFileName);
+
+                    //resim eklenmesinde sorun olmazsa burda stremi oluşturuyorum çünkü kapsamdan çıktığında bellekten silinsin diye
+                    using(var stream = new FileStream(path, FileMode.Create)){
+                    await imageFile.CopyToAsync(stream);//ilgili dizine kopyaladım resmi ve çalışması için Task<IActionResult> yaptım
+                    }
+                    model.Image = randomFileName;
+                }
+
+                var user = await _userRepository.Users.FirstOrDefaultAsync(x => x.UserName == model.UserName || x.Email == model.Email);
+                if (user == null)
+                {
+                    _userRepository.CreateUser(new Entity.User{
+                        UserName = model.UserName,
+                        Name = model.Name,
+                        Email = model.Email,
+                        Image = model.Image,
+                        Password = model.Password
+                    });
+                    return RedirectToAction("Login");
+                }else
+                {
+                    ModelState.AddModelError("","Username ya da Email kullanılmadı.");
+                }
+                
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> Logout(){
