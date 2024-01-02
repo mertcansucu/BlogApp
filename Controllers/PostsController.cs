@@ -33,6 +33,9 @@ namespace BlogApp.Controllers
             _commentRepository = commentRepository;
         }
         public async Task<IActionResult> Index(string tag){//burdaki tag url olarak kullanıyorum karışıklık olmasın diye böyle dedim
+
+            var claims = User.Claims;
+
             var posts = _postRepository.Posts;//Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
             if (!string.IsNullOrEmpty(tag))//postaki tag bilgisi boş değilse
             {

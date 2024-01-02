@@ -1,6 +1,7 @@
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete;
 using BlogApp.Data.Concrete.EfCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,10 +25,18 @@ builder.Services.AddDbContext<BlogContext>(options =>{//veritabı bağlantılar�
 builder.Services.AddScoped<IPostRepository, EfPostRepository>();//ben burda diyorum ki IPostRepository ben sanalı göderdiğimde sen bana EfPostRepository ile gerçek halini bana gönder,AddScoped olmasının nedeni her http reqository aynı nesneyi gönderir yani her http requestinde bir nesne yollar
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
+builder.Services.AddScoped<IUserRepository, EfUserRepository>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();//burda kullanıcı girişini cookie ile yapıcam yani tarayıcıya girdiğim kullanıcı bilgilerini tarayıcı hafızasında tuttuğu sürece durmadan giriş yapmadan direk girişi sağlıyıcam
 
 var app = builder.Build();
 
 app.UseStaticFiles();//wwwroot altındaki dosyalar http isteklerini karşılar yani erişimi açtım
+
+
+app.UseRouting();//alttaki kodların çalışması için onlardan önce eklenmeli
+app.UseAuthentication();//uygulamanın bizi tanımasını sağladım kullnaıcı girişi için
+app.UseAuthorization();//uygulamanın bazı özelliklerini kullanmamızı sağladı
 
 SeedData.TestVerileriniDoldur(app);//app aracılığıyla Services e ulaşıp içerindeki BlogContext bilgisini alıcam
 
