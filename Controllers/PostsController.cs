@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
@@ -34,7 +35,7 @@ namespace BlogApp.Controllers
         }
         public async Task<IActionResult> Index(string tag){//burdaki tag url olarak kullanıyorum karışıklık olmasın diye böyle dedim
 
-            var claims = User.Claims;
+            
 
             var posts = _postRepository.Posts;//Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
             if (!string.IsNullOrEmpty(tag))//postaki tag bilgisi boş değilse
@@ -59,12 +60,16 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddComment(int PostId, string UserName, string Text){
-            var entity = new Comment{
+        public JsonResult AddComment(int PostId, string Text){
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var avatarImg = User.FindFirstValue(ClaimTypes.UserData);
+
+            var entity = new Comment{//yorum ekleme
+                PostId = PostId,
                 Text = Text,
                 PublishedOn = DateTime.Now,
-                PostId = PostId,
-                User = new User{UserName = UserName, Image = "avatar.jpg"}
+                UserId = int.Parse(userId ?? "")
             };
             _commentRepository.CreateComment(entity);
             /*json ile ajax request yaptığım için sayfayı json döndürücemki sayfa yenilenmedem yorum eklensin
@@ -72,11 +77,12 @@ namespace BlogApp.Controllers
                 //2. yol bunu programcs de post_details direkt alıp o kısmı otomatik dolturttum
                 // return RedirectToRoute("post_details", new{url = Url});
             */
-            return Json(new{
-                UserName,
+            return Json(new{//yorum yapan kişi
+                username,
                 Text,
                 entity.PublishedOn,
-                entity.User.Image
+                // entity.User.Image bunu direk kullanıcın img ile kullanıcam
+                avatarImg
             });
             
         }

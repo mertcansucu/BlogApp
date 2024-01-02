@@ -19,7 +19,17 @@ namespace BlogApp.Controllers
         }
 
         public IActionResult Login(){
+            if (User.Identity!.IsAuthenticated)//eğer login girişi yaptıysam ben linkten bile login ekranına gitmeme gerek kalmaz onu engelleyip onun yerine gideceği sayfayı ekledim
+            {
+                return RedirectToAction("Index","Posts");
+            }
             return View();
+        }
+
+        public async Task<IActionResult> Logout(){
+            //layout içinde oluşturduğum logout butonunu aktifleştirdim
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//öncedec oluşturulmuş cookie leri sildim
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -35,6 +45,7 @@ namespace BlogApp.Controllers
                     userClaims.Add(new Claim(ClaimTypes.NameIdentifier,isUser.UserId.ToString()));//NameIdentifier kullanıcının id sini tutar
                     userClaims.Add(new Claim(ClaimTypes.Name,isUser.UserName ?? ""));//ClaimTypes.Name,isUser.UserName ?? "" => kullanıcının ad bilgisini alıyorum ama eğer boşsa onun yerine boş olarak kaydet diyorum
                     userClaims.Add(new Claim(ClaimTypes.GivenName,isUser.Name ?? ""));//GivenName ikini ad gibi düşün soyadı da kaydede bilirsin bu şekilde
+                    userClaims.Add(new Claim(ClaimTypes.UserData,isUser.Image ?? ""));//img bilgisini almak için giriş yapan kullanıcının
 
                     if (isUser.Email == "mrtcnscc@gmail.com")
                     {
