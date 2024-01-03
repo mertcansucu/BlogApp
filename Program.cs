@@ -27,7 +27,10 @@ builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();//burda kullanıcı girişini cookie ile yapıcam yani tarayıcıya girdiğim kullanıcı bilgilerini tarayıcı hafızasında tuttuğu sürece durmadan giriş yapmadan direk girişi sağlıyıcam
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
+    options.LoginPath = "/users/login";//bu sonradan eklediğim kod ile kullanıcı girş yapmadan post eklemeye kalkarsa engel olduğunda hangi sayfaya beni yönlendireceğini söyledim
+});//burda kullanıcı girişini cookie ile yapıcam yani tarayıcıya girdiğim kullanıcı bilgilerini tarayıcı hafızasında tuttuğu sürece durmadan giriş yapmadan direk girişi sağlıyıcam
+
 
 var app = builder.Build();
 

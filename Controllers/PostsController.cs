@@ -7,6 +7,7 @@ using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
 using BlogApp.Entity;
 using BlogApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -87,11 +88,13 @@ namespace BlogApp.Controllers
             
         }
 
+        [Authorize] // kullanıvı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
         public IActionResult Create(){
             return View();
         }
 
         [HttpPost]
+        [Authorize] // kullanıvı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
         public IActionResult Create(PostCreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -113,6 +116,20 @@ namespace BlogApp.Controllers
 
             }
             return View(model);
+        }
+
+        [Authorize] // kullanıvı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
+        public async Task<IActionResult> List(){//bu listenin amacı admin kişisi tüm postları görebiliyor
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
+            var posts = _postRepository.Posts;//tüm post bilgilerimni aldım ama veritabnı ile çağırmadım
+
+            if (string.IsNullOrEmpty(role))//burda user rolu olmayanları bul dedim ve onlara sadece kendi paylaştığı postları görsün dedim
+            {
+                posts = posts.Where(i => i.UserId == userId);
+            }
+            return View(await posts.ToListAsync());//veri tabanıyla bağlantı sağlayıp postları çağırdım
         }
     }
 }
