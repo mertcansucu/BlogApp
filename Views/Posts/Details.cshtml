@@ -11,7 +11,7 @@
                 }
             </div> 
             <img src="~/img/@Model.Image" class="img-fluid rounded" alt="">
-            <div>@Model.Content</div>
+            <div>@Html.Raw(@Model.Content)</div><!--TinyMCE ile html editör oluşturdum bunu sayfada yorumlanmış şekilde getirmek için bu hale getirdim-->
         </div>
         <div class="bg-white nt-3">
             <div class="card border-0">

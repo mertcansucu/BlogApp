@@ -9,6 +9,13 @@ namespace BlogApp.Entity
     {
         public int PostId { get; set; }
         public string? Title { get; set; }
+        public string? Description { get; set; }//Açıklama
+        /*yeni bir sütun eklediğim için veritabanı güncellemesi yapmam lazım: 
+            dotnet ef migrations add ColumAddDescription
+            dotnet ef database drop --force
+            dotnet watch run
+
+        */
         public string? Content { get; set; }
         public string? Url { get; set; }
         public string? Image {get; set;}

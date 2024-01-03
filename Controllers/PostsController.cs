@@ -86,5 +86,33 @@ namespace BlogApp.Controllers
             });
             
         }
+
+        public IActionResult Create(){
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(PostCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //kullanıcın idsine göre eklemek için aldım
+
+                _postRepository.CreatePost(
+                    new Post{
+                        Title = model.Title,
+                        Content = model.Content,
+                        Url = model.Url,
+                        UserId = int.Parse(userId ?? ""),
+                        PubilshedOn = DateTime.Now,
+                        Image = "1.jpg",
+                        IsActive = false // admin onayından sonra görünmesini yapacağım için false dedim başta
+                    }
+                );
+                return RedirectToAction("Index");
+
+            }
+            return View(model);
+        }
     }
 }

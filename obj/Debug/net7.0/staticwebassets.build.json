@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vvJaVifg+7JvAs5slXA4icrS4IjSQIEJMaQiHhFjduQ=",
+  "Hash": "9KCBVhWET0k+I2Irmf4bSH8Z1WG49hiMFwzYZEO39aA=",
   "Source": "BlogApp",
   "BasePath": "_content/BlogApp",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\51145948-3b3a-40d6-bf03-1a734c12a2e0.jpg",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/51145948-3b3a-40d6-bf03-1a734c12a2e0.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\51145948-3b3a-40d6-bf03-1a734c12a2e0.jpg"
     },
     {
       "Identity": "C:\\Users\\Mert Can SUCU\\OneDrive - Ataturk University\\Masaüstü\\BlogApp\\BlogApp\\wwwroot\\img\\avatar.jpg",
