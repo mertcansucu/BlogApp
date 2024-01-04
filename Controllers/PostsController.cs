@@ -55,6 +55,8 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> Details(string url){
             return View(await _postRepository
             .Posts
+            .Include(x => x.User)//postu yayınlayan kişinin bilgisini almak için ekledim
+            //doğrudan ulaştıklarım include olur ama theninclude farklı bir yere geçip ordaki bilgiyi almak istediğimde öyle yaparım
             .Include(x => x.Tags)//joinleme yaptım
             .Include(x => x.Comments)//o postla ilgili yorumları ekledim join ile
             .ThenInclude(x => x.User)//bunu böyle yapmamın nedeni commentinde user bilgisini alıp onun içindeki resmi çekmek için
