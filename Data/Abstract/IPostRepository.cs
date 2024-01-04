@@ -11,5 +11,6 @@ namespace BlogApp.Data.Abstract
         IQueryable<Post> Posts { get; }//IQueryable=>Contex üzerinden Post verilerini aldığımda extra filtreleme yapabilmek için
 
         void CreatePost(Post post);
+        void EditPost(Post post);
     }
 }

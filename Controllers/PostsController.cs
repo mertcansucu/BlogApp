@@ -38,7 +38,8 @@ namespace BlogApp.Controllers
 
             
 
-            var posts = _postRepository.Posts;//Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
+            var posts = _postRepository.Posts.Where(i => i.IsActive);//Isactive ekleyerek sadece true olanları göster dedim
+            //Iquerayble bir bilgi yani veri tabanından bilgileri şuan almıyorum sadece bağlantıyı sağladım
             if (!string.IsNullOrEmpty(tag))//postaki tag bilgisi boş değilse
             {
                 posts = posts.Where(x => x.Tags.Any(t => t.Url == tag));//her bir postun taglerine bakıyorum taglerin içerisinde ise tag le eşleşen bir kayıt varsa bu durumda o postu geriye döndere posts ile alıyorum,burda veri tabanı çalışmıyor sadece bilgileri aldım
@@ -118,7 +119,7 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
-        [Authorize] // kullanıvı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
+        [Authorize] // kullanıcı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
         public async Task<IActionResult> List(){//bu listenin amacı admin kişisi tüm postları görebiliyor
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
             var role = User.FindFirstValue(ClaimTypes.Role);
@@ -130,6 +131,52 @@ namespace BlogApp.Controllers
                 posts = posts.Where(i => i.UserId == userId);
             }
             return View(await posts.ToListAsync());//veri tabanıyla bağlantı sağlayıp postları çağırdım
+        }
+
+        [Authorize] // kullanıcı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
+        public IActionResult Edit(int? id){
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _postRepository.Posts.FirstOrDefault(i => i.PostId == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(new PostCreateViewModel {
+                PostId = post.PostId,
+                Title = post.Title,
+                Description = post.Description,
+                Content = post.Content,
+                Url = post.Url,
+                IsActive = post.IsActive
+            });
+        }
+
+        [Authorize] // kullanıcı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
+        [HttpPost]
+        public IActionResult Edit(PostCreateViewModel model){
+            if (ModelState.IsValid)
+            {
+                var entityToUpdate = new Post{
+                    PostId = model.PostId,
+                    Title = model.Title,
+                    Description = model.Description,
+                    Content = model.Content,
+                    Url = model.Url
+                };
+
+                if(User.FindFirstValue(ClaimTypes.Role) == "admin"){//admin girip is active durumu güncellesin dedim
+                    entityToUpdate.IsActive = model.IsActive;
+                }
+
+                _postRepository.EditPost(entityToUpdate);//efpostrepository e gönderip güncellemeyi gerçekleştirdim
+                return RedirectToAction("List");
+            }
+            return View(model);
         }
     }
 }

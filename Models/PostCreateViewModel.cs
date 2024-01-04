@@ -9,6 +9,8 @@ namespace BlogApp.Models
 {//entity(burda entity kullanmamamızın nedeni ekstra bilgilerinde olması) ve model arasındaki fark taşıyacak olduğumuz bilgileri taşıyacak olan bir sınıf
     public class PostCreateViewModel
     {
+        public int PostId { get; set; }
+
         [Required]//zorunlu alan
         [Display(Name = "Başlık")]
         public string? Title { get; set; }
@@ -24,5 +26,7 @@ namespace BlogApp.Models
         [Required]
         [Display(Name = "Url")]
         public string? Url { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
