@@ -1,10 +1,10 @@
 @model PostCreateViewModel
 
+<form action="Edit" method="post"><!--bunu böyle yapmamın nedeni burdaki check kısmını da controller içine gönderip güncelleme yapabilmek-->
 <div class="row">
     <div class="col-9">
         <div class="bg-white p-4">
             <h1>Post Edit</h1>
-            <form action="Edit" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="PostId">
                 <div class="mb-3">
@@ -36,28 +36,35 @@
                 }
 
                 <button type="submit" class="btn btn-primary">Kaydet</button>
-            </form>
         </div>
     </div>
-    <div class="col-3">
-        <div class="bg-white p-4">
-            @foreach(var tag in ViewBag.Tags){
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="tag_@tag.TagId"
+        <div class="col-3">
+            <div class="bg-white p-4">
+                @foreach(var tag in ViewBag.Tags){
+                    <div class="form-check">
+                        <input class="form-check-input" 
+                        name="tagIds"
+                        type="checkbox" 
+                        value="@tag.TagId" 
+                        id="tag_@tag.TagId"
                         @(Model.Tags.Any(i => i.TagId == tag.TagId)? "checked" : "")
-                    ><!--tagid sine göre işlem yapabilmek için
-                    @(Model.Tags.Any(i => i.TagId == tag.TagId)? "checked" : "") bu kodun amacı şu ben tagleri seçili yapmak itiyorum ama hepsini değil sadece idsi eşleşen yani zaten seçili olanlar varsa onları işaretle yoksa işaretleme dedim
-                    -->
-                    <label class="form-check-label" for="tag_@tag.TagId">
-                        @tag.Text
-                    </label>
-                </div>
-            }
-            
-        </div>
-    </div>
-</div>
+                        ><!--tagid sine göre işlem yapabilmek için
+                            @(Model.Tags.Any(i => i.TagId == tag.TagId)? "checked" : "") bu kodun amacı şu ben tagleri seçili yapmak itiyorum ama hepsini değil sadece idsi eşleşen yani zaten seçili olanlar varsa onları işaretle yoksa işaretleme dedim
 
+                            burda name bilgisi ekleyerek controllerda çağırıp işlem yaptırıcam ama burda birden fazla tag de seçilebilir bunda sıkıntı yok .net bunun dizi olduğunu anlayacak
+                            value bilgisiylede o anki hangi tagid yi istediğimi anlasın diye
+                        -->
+                        <label class="form-check-label" for="tag_@tag.TagId">
+                            @tag.Text
+                        </label>
+                    </div>
+                }
+                
+            </div>
+        </div>
+</div>
+    
+</form>
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.7.0/tinymce.min.js"></script>
 

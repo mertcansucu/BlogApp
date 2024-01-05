@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
 using BlogApp.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Data.Concrete
 {
@@ -38,6 +39,25 @@ namespace BlogApp.Data.Concrete
                 entity.Content = post.Content;
                 entity.Url = post.Url;
                 entity.IsActive = post.IsActive;
+
+                _context.SaveChanges();//oluşturduğum bu metodu postcont içinde kullanıcam ve güncellemeyi yapıcam
+
+            }
+        }
+
+        public void EditPost(Post post, int[] tagIds)
+        {
+            var entity = _context.Posts.Include(i => i.Tags).FirstOrDefault(i => i.PostId == post.PostId);//Include(i => i.Tags) ifadesini kullanmazsam, Post nesnesi yüklenirken Tags nesneleri yüklenmez. Bu durumda, posta ait etiketler hafızada olmadığı için, bu etiketleri güncellemeye çalıştığımda da hata alırım bunu ekleyerek hatayı engelleyip güncellemeyi yaptım
+
+            if (entity != null)
+            {
+                entity.Title = post.Title;
+                entity.Description = post.Description;
+                entity.Content = post.Content;
+                entity.Url = post.Url;
+                entity.IsActive = post.IsActive;
+
+                entity.Tags = _context.Tags.Where(tag => tagIds.Contains(tag.TagId)).ToList();//burdaki kodda ben veritabnına sorgu yaptım diyorum ki ben seçtiğim etiketleri al ve veritabanına bak orda eşleşen aynı idli olanlar varsa seçilmemiş olsada buna göre güncelle diyorum
 
                 _context.SaveChanges();//oluşturduğum bu metodu postcont içinde kullanıcam ve güncellemeyi yapıcam
 

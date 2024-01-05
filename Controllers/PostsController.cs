@@ -151,7 +151,7 @@ namespace BlogApp.Controllers
                 return NotFound();
             }
 
-            ViewBag.Tags = _tagRepository.Tags.ToList();//taglaeri alıp onları postlarla ilişkilendirme yapıcam 
+            ViewBag.Tags = _tagRepository.Tags.ToList();//tagleri alıp onları postlarla ilişkilendirme yapıcam 
 
             return View(new PostCreateViewModel {
                 PostId = post.PostId,
@@ -166,7 +166,7 @@ namespace BlogApp.Controllers
 
         [Authorize] // kullanıcı giriş yapmadan post ekleme yapmasını engellemek için bunu ekledim
         [HttpPost]
-        public IActionResult Edit(PostCreateViewModel model){
+        public IActionResult Edit(PostCreateViewModel model, int[] tagIds){
             if (ModelState.IsValid)
             {
                 var entityToUpdate = new Post{
@@ -181,9 +181,11 @@ namespace BlogApp.Controllers
                     entityToUpdate.IsActive = model.IsActive;
                 }
 
-                _postRepository.EditPost(entityToUpdate);//efpostrepository e gönderip güncellemeyi gerçekleştirdim
+                _postRepository.EditPost(entityToUpdate,tagIds);//efpostrepository e gönderip güncellemeyi gerçekleştirdim
+                //ekstra olara tag id içinde güncelleme için veriyi ekledim
                 return RedirectToAction("List");
             }
+            ViewBag.Tags = _tagRepository.Tags.ToList();//eğer bir hata varsa hatalardan önce etiketleri görmek için ekledim ve sayfa yenilendiğinde mevcut taglar görünsün diye
             return View(model);
         }
     }
